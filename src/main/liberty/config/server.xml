@@ -14,27 +14,22 @@
  limitations under the License.
 -->
 <server description="Sample MicroProfile server">
+
     <featureManager>
-        <feature>microProfile-1.4</feature>
+        <feature>microProfile-2.0</feature>
     </featureManager>
     
-
     <applicationManager autoExpand="true" />
     
-     <!-- 
-     Uncomment this section to try APIs which require security 
-     (e.g. MicroProfile Metrics).  Note, this configuration is
-     for test purposes only and MUST NOT BE USED IN PRODUCTION
-     AS IT IS INSECURE. -->  
-     <!--   
-    <variable name="admin.password" value="change_it" />
-    <variable name="keystore.password" value="change_it" />
-    
-    <quickStartSecurity userName="admin" userPassword="${admin.password}"/>
-    <keyStore id="defaultKeyStore" password="${keystore.password}"/>    
-     -->
-     
+    <quickStartSecurity userName="admin" userPassword="wsadmin0"/>
+     <variable name="keystore.password" value="keyst0re" />
+     <keyStore id="defaultKeyStore" password="${keystore.password}"/>
     <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
     
     <webApplication id="article1" location="article1.war" name="article1"/>
+    
+    <variable name="salutation" value="Dr."/>
+
+    <logging traceSpecification="*=info:com.ibm.ws.microprofile.config.*=all" maxFileSize="80"></logging>
+
 </server>

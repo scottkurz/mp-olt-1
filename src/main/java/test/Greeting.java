@@ -15,8 +15,11 @@
  *******************************************************************************/
 package test;
 
+import javax.json.bind.annotation.JsonbProperty;
+
 public class Greeting {
 
+	@JsonbProperty("messageContents")
     private String message;
     private String name;
 

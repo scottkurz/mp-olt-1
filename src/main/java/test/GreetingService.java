@@ -15,29 +15,37 @@
  *******************************************************************************/
 package test;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-import javax.enterprise.context.RequestScoped;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
 @Path("/hello")
 @RequestScoped
 public class GreetingService {
 
+    @Inject
+    @ConfigProperty(name = "salutation")
+    String salutation;
+    
     @GET
     @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     @Timed(name = "sayHelloTime", displayName = "Call duration", description = "Time spent in call")
     public Response sayHello(@PathParam("name") String name) {
 
-        Greeting greeting = new Greeting("Hello", name);
+        Greeting greeting = new Greeting("Hello " + salutation, name);
         return Response.ok(greeting).build();
     }
+    
+
 
 }
